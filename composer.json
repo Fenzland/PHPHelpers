@@ -1,0 +1,23 @@
+{
+    "name": "fenzland/php-helpers",
+    "description": "Useful helper functions and classes or traits",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fenz",
+            "email": "uukoo@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FenzHelpers\\": "libs/"
+        },
+        "files": [
+            "libs/helpers.php"
+        ]
+    }
+}
