@@ -29,6 +29,50 @@ if( !function_exists('array_transposition') )
 }
 
 
+if( !function_exists( 'preg_get' ) && function_exists( 'preg_match' ) )
+{
+	/**
+	 * Perform a regular expression match and get the match.
+	 * @param  string  $pattern
+	 * @param  string  $subject
+	 * @param  mixed  $index
+	 * @return string|null
+	 */
+	function preg_get( string$pattern, string$subject, $index=0 )
+	{
+		preg_match( $pattern, $subject, $matches );
+
+		return isset($index)? $matches[$index]??null : $matches;
+	}
+}
+
+
+if( !function_exists('array_take') )
+{
+	/**
+	 * Take an item from an array.
+	 *
+	 * @param  array  $array
+	 * @param  mixed  $key
+	 *
+	 * @return mixed
+	 */
+	function array_take( array&$array , $key )
+	{
+		if( array_key_exists( $key, $array ) )
+		{
+			$value= $array[$key];
+
+			unset($array[$key]);
+
+			return $value;
+		}
+
+		return null;
+	}
+}
+
+
 if( !function_exists('strrstr') )
 {
 	/**
