@@ -91,6 +91,77 @@ if( !function_exists('strrstr') )
 }
 
 
+if( !function_exists('decb64') )
+{
+	/**
+	 * strstr from right to left.
+	 *
+	 * @param  numaric $num
+	 *
+	 * @return string
+	 */
+	function decb64($num){
+		$key='';
+
+		do{
+			$n=$num%0x40;
+
+			(
+				$n<=9 and ($key.=$n or 1)
+			)or(
+				$n<=0x23 and $key.=chr($n+0x57)
+			)or(
+				$n<=0x3D and $key.=chr($n+0x1D)
+			)or(
+				$n==0x3F and $key.='-'
+			)or(
+				$key.='_'
+			);
+
+			$num=$num>>6;
+
+		}while($num>0);
+
+		return $key;
+	}
+}
+
+
+if( !function_exists('b64dec') )
+{
+	/**
+	 * strstr from right to left.
+	 *
+	 * @param  string $key
+	 *
+	 * @return int
+	 */
+	function b64dec($key){
+		$num=0;
+		for($i=strlen($key)-1;$i>=0;--$i)
+		{
+			$n=ord($key{$i});
+
+			(
+				$n==0x2D and $n=0x3F
+			)or(
+				$n==0x5F and $n=0x3E
+			)or(
+				$n>=0x30 && $n<=0x39 and ($n-=0x30 or 1)
+			)or(
+				$n>=0x41 && $n<=0x5A and $n-=0x1D
+			)or(
+				$n>=0x61 && $n<=0x7A and $n-=0x57
+			);
+
+			$num+=$n<<($i*6);
+		}
+
+		return $num;
+	}
+}
+
+
 if( !function_exists( 'strcmplen' ) )
 {
 	/**
