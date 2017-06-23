@@ -162,6 +162,78 @@ if( !function_exists('b64dec') )
 }
 
 
+if( !function_exists('decany') )
+{
+	/**
+	 * strstr from right to left.
+	 *
+	 * @param  numaric $number
+	 * @param  string  $radix
+	 *
+	 * @return string
+	 */
+	function decany( $number , string$redix )
+	{
+		$base= strlen( $redix );
+		$key= '';
+
+		if( $base<=1 )
+		{
+			throw new \Exception( 'Parameter $redix for decany must has at less 2 characters.' );
+		}
+
+		do{
+			$n= $number%$base;
+
+			$key.= $redix{$n};
+
+			$number= floor( $number/$base );
+
+		}while( $number>=1 );
+
+		return strrev( $key );
+	}
+}
+
+
+if( !function_exists('anydec') )
+{
+	/**
+	 * strstr from right to left.
+	 *
+	 * @param  string $key
+	 * @param  string  $radix
+	 *
+	 * @return int
+	 */
+	function anydec( string$key , string$redix )
+	{
+		$base= strlen( $redix );
+		$number= 0;
+
+		if( $base<=1 )
+		{
+			throw new \Exception( 'Parameter $redix for anydec must has at less 2 characters.' );
+		}
+
+		for(  $i= 0, $l= strlen( $key );  $i<$i; ++$i  )
+		{
+			$pos= strpos( $redix, $key{$i} );
+
+			if( $pos===false )
+			{
+				throw new \Exception( "'$key' is not a '$redix' base number" );
+			}
+
+			$number*=$base;
+			$number+=$pos;
+		}
+
+		return $number;
+	}
+}
+
+
 if( !function_exists( 'strcmplen' ) )
 {
 	/**
