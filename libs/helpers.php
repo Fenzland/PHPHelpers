@@ -91,6 +91,60 @@ if( !function_exists('strrstr') )
 }
 
 
+if( !function_exists( 'strcmplen' ) )
+{
+	/**
+	 * compare two strings and return compared length
+	 *
+	 * @param  string $str1
+	 * @param  string $str2
+	 *
+	 * @return int
+	 */
+	function strcmplen( string$str1, string$str2 ):int
+	{
+		$length= min( strlen( $str1 ), strlen( $str2 ) );
+
+		for(  $i= 0;  $i<$length;  ++$i  )
+		{
+			if( strcmp( $str1{$i}, $str2{$i} ) )
+			{
+				return $i;
+			}
+		}
+
+		return $length;
+	}
+}
+
+
+if( !function_exists( 'strcasecmplen' ) )
+{
+	/**
+	 * compare two strings and return compared length
+	 *
+	 * @param  string $str1
+	 * @param  string $str2
+	 *
+	 * @return int
+	 */
+	function strcasecmplen( string$str1, string$str2 ):int
+	{
+		$length= min( strlen( $str1 ), strlen( $str2 ) );
+
+		for(  $i= 0;  $i<$length;  ++$i  )
+		{
+			if( strcasecmp( $str1{$i}, $str2{$i} ) )
+			{
+				return $i;
+			}
+		}
+
+		return $length;
+	}
+}
+
+
 if( !function_exists('strtosnake') )
 {
 	/**
