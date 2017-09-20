@@ -359,3 +359,26 @@ if( !function_exists('array_reduce_better') )
 		return $initial;
 	}
 }
+
+
+if( !function_exists('mksdir') ){
+	/**
+	 * Make sure dir, make sure the dir exists.
+	 *
+	 * @param  string  $dirname
+	 *
+	 * @return void
+	 */
+	function mksdir( string$dirname, $mod=0755 )
+	{
+		if( file_exists( $dirname ) )
+		{
+			if(!( is_dir( $dirname ) ))
+			{
+				throw Error( "There is a file named '$dirname' , cannot make dir." );
+			}
+		}else{
+			mkdir( $dirname, $mod, true );
+		}
+	}
+}
