@@ -331,6 +331,6 @@ if( !function_exists('strtocamel') )
 	 */
 	function strtocamel( string$input ):string
 	{
-		return lcfirst(strtocamel($input));
+		return lcfirst(strtostudly($input));
 	}
 }
