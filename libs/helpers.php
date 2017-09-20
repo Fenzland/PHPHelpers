@@ -334,3 +334,28 @@ if( !function_exists('strtocamel') )
 		return lcfirst(strtostudly($input));
 	}
 }
+
+
+if( !function_exists('array_reduce_better') )
+{
+	/**
+	 * A better .
+	 *
+	 * @param  array $array
+	 *
+	 * @return mixed
+	 */
+	function array_reduce_better( array$array, callable$callback, $initial=null )
+	{
+		$origin= $array;
+
+		func_num_args()<3 and $initial= array_shift( $array );
+
+		foreach( $array as $key=>$value )
+		{
+			$initial= $callback( $initial, $value, $key, $origin );
+		}
+
+		return $initial;
+	}
+}
