@@ -216,7 +216,7 @@ if( !function_exists('anydec') )
 			throw new \Exception( 'Parameter $redix for anydec must has at less 2 characters.' );
 		}
 
-		for(  $i= 0, $l= strlen( $key );  $i<$i; ++$i  )
+		for(  $i= 0, $l= strlen( $key );  $i<$l; ++$i  )
 		{
 			$pos= strpos( $redix, $key{$i} );
 
