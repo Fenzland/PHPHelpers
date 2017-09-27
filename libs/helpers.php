@@ -407,3 +407,28 @@ if( !function_exists('mkobj') ){
 		};
 	}
 }
+
+
+if( !function_exists('call_user_func_assoc') ){
+	/**
+	 * Call function with an assoc array, pass parameters with the same name.
+	 *
+	 * @param  callable  $function
+	 *
+	 * @return void
+	 */
+	function call_user_func_assoc( callable$function, array$param_arr=[] )
+	{
+		$params= (
+			is_array( $function )
+			? new ReflectionMethod( ...$function )
+			: new ReflectionFunction( $function )
+		)->getParameters();
+
+		return $function(
+			...array_map( function( $param )use( $param_arr ){
+				return $param_arr[$param->name]??$param->getDefaultValue()??null;
+			}, $params )
+		);
+	}
+}
