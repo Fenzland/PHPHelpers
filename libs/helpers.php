@@ -382,3 +382,28 @@ if( !function_exists('mksdir') ){
 		}
 	}
 }
+
+
+if( !function_exists('mkobj') ){
+	/**
+	 * Make a null object if null.
+	 *
+	 * @param  mixed  $origin
+	 *
+	 * @return void
+	 */
+	function mkobj( $origin )
+	{
+		return $origin??new class{
+			public function __toString():string {  return '';  }
+			public function __toBool():string {  return false;  }
+			public function __toInt():string {  return 0;  }
+			public function __toFloat():string {  return 0.0;  }
+			public function __invork():string {  return null;  }
+			public function __call( string$method, array$parameters ) {  return null;  }
+			public function __get( string$property ) {  return null;  }
+			public static function __callStatic( string$method, array$parameters ) {  return null;  }
+			public static function __getStatic( string$property ) {  return null;  }
+		};
+	}
+}
