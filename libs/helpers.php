@@ -361,6 +361,26 @@ if( !function_exists('array_reduce_better') )
 }
 
 
+if( !function_exists('array_map_better') )
+{
+	/**
+	 * A better .
+	 *
+	 * @param  array $array
+	 *
+	 * @return mixed
+	 */
+	function array_map_better( array$array, callable$callback )
+	{
+		return array_combine(
+			$keys= array_keys( $array )
+		,
+			array_map( $callback, $keys, $array )
+		);
+	}
+}
+
+
 if( !function_exists('mksdir') ){
 	/**
 	 * Make sure dir, make sure the dir exists.
