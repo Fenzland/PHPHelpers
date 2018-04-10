@@ -336,6 +336,117 @@ if( !function_exists('strtocamel') )
 }
 
 
+if( !function_exists( 'http_parse_query' ) )
+{
+	/**
+	 * The inverse function of http_build_query.
+	 * 
+	 * @param  string $query_str
+	 * 
+	 * @return array
+	 */
+	function http_parse_query( string$query_str ):array
+	{
+		if(!( strlen( $query_str ) ))
+			return [];
+		
+		if( '?' === $query_str[0] )
+			$query_str= substr( $query_str, 1 );
+		
+		$queries= explode( '&', $query_str );
+		
+		$data= [];
+		foreach( $queries as $query )
+		{
+			$key= urldecode( strtok( $query, '=' ) );
+			$value= urldecode( strtok( '' ) );
+			
+			$keys= explode( '[', str_replace( ']', '', $key ) );
+			
+			$p= &$data;
+			
+			foreach( $keys as $key )
+			{
+				is_array( $p ) or $p= [];
+				
+				if( strlen( $key ) )
+					$p= &$p[$key];
+				else
+					$p= &$p[];
+			}
+			
+			$p= $value;
+			
+			unset( $p );
+		}
+		
+		return $data;
+	}
+}
+
+
+if( !function_exists( 'url_replace_query' ) )
+{
+	/**
+	 * Replace query parameters within url.
+	 * 
+	 * @param  string $url    [description]
+	 * @param  array  $params [description]
+	 * 
+	 * @return string
+	 */
+	function url_replace_query( string$url, array$params ):string
+	{
+		$components= parse_url( $url );
+		
+		$queries= http_parse_query( $components['query']??'' );
+		
+		$queries= array_replace_recursive( $queries, $params );
+		
+		$components['query']= http_build_query( $queries );
+		
+		return build_url( $components );
+	}
+}
+
+
+if( !function_exists( 'build_url' ) )
+{
+	/**
+	 * The inverse function of parse_url.
+	 * 
+	 * @param  array  $components
+	 * 
+	 * @return string
+	 */
+	function build_url( array$components ):string
+	{
+		return implode( '', [
+			$components['scheme']??'http',
+			'://',
+			$components['host']??'127.0.0.1',
+			(
+				$components['port']??null
+				? ':'.$components['port']
+				: ''
+			),
+			$components['path']??'/',
+			(
+				$components['query']??null
+				? '?'.$components['query']
+				: ''
+			),
+			(
+				$components['fragment']??null
+				? '#'.$components['fragment']
+				: ''
+			),
+		]
+		);
+	}
+}
+
+
 if( !function_exists('array_reduce_better') )
 {
 	/**
